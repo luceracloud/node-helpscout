@@ -24,6 +24,10 @@
     "url": "https://github.com/luceracloud/node-helpscout/issues"
   },
   "homepage": "https://github.com/luceracloud/node-helpscout",
+  "dependencies": {
+    "defaults": "^1.0.0",
+    "request": "^2.53.0"
+  },
   "devDependencies": {
     "gulp": "^3.8.11",
     "gulp-mocha": "^2.0.0",
