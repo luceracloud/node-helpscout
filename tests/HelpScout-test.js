@@ -5,9 +5,9 @@ var mocks = require('./mocks');
 
 describe('helpscout', function() {
 
-    var apiKey = 'xxxxx';
-    var mailboxId = 'xxxxx';
-    var customerId = 'xxxxx';
+    var apiKey = 'd7d7b958925901cc0859a2f620577bc1c9257cff';
+    var mailboxId = 34966;
+    var customerId;
 
     describe('mailboxes', function() {
 
