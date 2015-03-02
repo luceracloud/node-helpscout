@@ -1,0 +1,33 @@
+{
+  "name": "HelpScout",
+  "version": "0.1.0",
+  "description": "Node.js HelpScout API",
+  "main": "index.js",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "test": "cd tests && mocha HelpScout-test.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/luceracloud/node-helpscout"
+  },
+  "keywords": [
+    "node",
+    "helpscout",
+    "api"
+  ],
+  "author": "Randy Lebeau",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/luceracloud/node-helpscout/issues"
+  },
+  "homepage": "https://github.com/luceracloud/node-helpscout",
+  "devDependencies": {
+    "gulp": "^3.8.11",
+    "gulp-mocha": "^2.0.0",
+    "nock": "^0.59.1",
+    "superagent": "^0.21.0"
+  }
+}
