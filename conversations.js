@@ -1,16 +1,15 @@
-var defaults = require('defaults');
-var request = require('request');
-
-/**
- * Expose `Conversations`.
- */
+var defaults = require('defaults'),
+    request = require('request');
 
 module.exports = Conversations;
 
 /**
+ * 
  * Initialize a new helpscout `Conversations` client with an
  * `apiKey` and `mailboxId`.
  *
+ * @class 4.Conversations
+ * 
  * @param {String} apiKey
  * @param {String} mailboxId
  */
@@ -20,7 +19,6 @@ function Conversations(apiKey, mailboxId) {
     if (!apiKey) throw new Error('Conversations requires an apiKey.');
     this.apiKey = apiKey;
     this.mailboxId = mailboxId;
-
 }
 
 /**
@@ -90,7 +88,7 @@ Conversations.prototype.listForCustomer = function(customerId, options, callback
 };
 
 /**
- * Get a single `Conversation`
+ * Get a single existing `Conversation`.
  *
  * @param  {Number}   conversationId
  * @param  {Function} callback
@@ -115,7 +113,7 @@ Conversations.prototype.get = function(conversationId, callback) {
 };
 
 /**
- * Create a `Conversation`
+ * Create a new `Conversation`.
  *
  * @param  {Object}   conversation
  * @param  {Object}   options
@@ -154,7 +152,7 @@ Conversations.prototype.create = function(conversation, options, callback) {
 };
 
 /**
- * Update a `Conversation`
+ * Update an existing `Conversation`.
  *
  * @param  {Number}   conversationId
  * @param  {Object}   updates
@@ -185,7 +183,7 @@ Conversations.prototype.update = function(conversationId, updates, callback) {
 };
 
 /**
- * Delete a `Conversation`
+ * Delete an existing `Conversation`.
  *
  * @param  {Number}   conversationId
  * @param  {Function} callback

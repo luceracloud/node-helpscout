@@ -1,16 +1,17 @@
-var defaults = require('defaults');
-var request = require('request');
-
-/**
- * Expose `Customers`.
- */
+var defaults = require('defaults'),
+    request = require('request');
 
 module.exports = Customers;
 
 /**
- * Initialize a new `Customers` client with an `apiKey`.
+ * 
+ * Initialize a new helpscout `Customers` client with an
+ * `apiKey` and `mailboxId`.
+ *
+ * @class 3.Customers
  *
  * @param {String} apiKey
+ * @param {String} mailboxId
  */
 
 function Customers(apiKey, mailboxId) {
@@ -21,13 +22,11 @@ function Customers(apiKey, mailboxId) {
 }
 
 /**
- * List the Helpscout mailboxes.
+ * List `Customers` (optionally by `Mailbox`).
  *
  * @param {Object} options
- *   @param {Number} page
  * @param {Function} callback
  */
-
 
 Customers.prototype.list = function(options, callback) {
 
@@ -41,18 +40,25 @@ Customers.prototype.list = function(options, callback) {
 
     var url = this.mailboxId ? 'https://api.helpscout.net/v1/mailboxes/' + this.mailboxId + '/customers.json' : 'https://api.helpscout.net/v1/customers.json';
 
-        request.get(url, {
-            'auth': {
-                'user': this.apiKey,
-                'pass': 'x'
-            },
-            qs: options
-        }, function(err, res) {
-            if (err || res.statusCode !== 200) return callback(new Error(err));
-            return callback(null, res.body);
-        });
+    request.get(url, {
+        'auth': {
+            'user': this.apiKey,
+            'pass': 'x'
+        },
+        qs: options
+    }, function(err, res) {
+        if (err || res.statusCode !== 200) return callback(new Error(err));
+        return callback(null, res.body);
+    });
 
 };
+
+/**
+ * Get a single existing `Customer`.
+ *
+ * @param {Number} customerId
+ * @param {Function} callback
+ */
 
 Customers.prototype.get = function(customerId, callback) {
 
@@ -70,6 +76,13 @@ Customers.prototype.get = function(customerId, callback) {
 
 };
 
+/**
+ * Create a new `Customer`.
+ *
+ * @param {Object} customer
+ * @param {Function} callback
+ */
+
 Customers.prototype.create = function(customer, callback) {
 
     if (!customer) return new Error('Customer object is required');
@@ -85,7 +98,9 @@ Customers.prototype.create = function(customer, callback) {
         },
         json: true,
         body: JSON.stringify(customer),
-        qs: { reload: true }
+        qs: {
+            reload: true
+        }
     }, function(err, res) {
         console.log(res.body);
         if (err || res.statusCode !== 200) return callback(new Error(res.body.message));
@@ -93,6 +108,14 @@ Customers.prototype.create = function(customer, callback) {
     });
 
 };
+
+/**
+ * Update an existing `Customer`.
+ *
+ * @param {Number} customerId
+ * @param {Object} customer
+ * @param {Function} callback
+ */
 
 Customers.prototype.update = function(customerId, customer, callback) {
 
@@ -110,7 +133,9 @@ Customers.prototype.update = function(customerId, customer, callback) {
         },
         json: true,
         body: customer,
-        qs: { reload: true }
+        qs: {
+            reload: true
+        }
     }, function(err, res) {
 
         if (err || res.statusCode !== 201) return callback(new Error(res.body));
@@ -119,6 +144,15 @@ Customers.prototype.update = function(customerId, customer, callback) {
     });
 
 };
+
+/**
+ * Delete an existing `Customer`.
+ *
+ * NOTE: NOT YET IMPLEMENTED BY HELP SCOUT
+ *
+ * @param {Number} customerId
+ * @param {Function} callback
+ */
 
 Customers.prototype.delete = function(customerId, callback) {
 

@@ -1,0 +1,12 @@
+{
+	"source": {
+		"include": [ "./", "./README.md" ],
+		"exclude": [ "./gulpfile.js", "./node_modules/" ],
+		"includePattern": ".+\\.js(doc)?$",
+		"excludePattern": "(^|\\/|\\\\)_"
+	},
+	"opts": {
+		"destination": "./docs",
+		"recurse": false
+	}
+}
