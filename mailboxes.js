@@ -1,22 +1,16 @@
-/**
- * 
- * Module `Mailboxes`.
- * 
- * @module mailboxes
- * 
- */
-
-var defaults = require('defaults');
-var request = require('request');
+var defaults = require('defaults'),
+	request = require('request');
 
 module.exports = Mailboxes;
 
 /**
+ * 
  * Initialize a new helpscout `Mailboxes` client with an
- * `apiKey` and `mailboxId`.
+ * `apiKey`.
+ *
+ * @class 2.Mailboxes
  *
  * @param {String} apiKey
- * @param {String} mailboxId
  */
 
 function Mailboxes(apiKey) {
@@ -26,13 +20,12 @@ function Mailboxes(apiKey) {
 }
 
 /**
- * List the Helpscout mailboxes.
+ * List the `Mailboxes`.
  *
  * @param {Object} options
- *   @param {Number} page
+ * @param {Number} page
  * @param {Function} callback
  */
-
 
 Mailboxes.prototype.list = function(options, callback) {
 

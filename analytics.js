@@ -1,20 +1,15 @@
-/**
- * 
- * Module `Analytics`.
- * 
- * @module analytics
- * 
- */
-
-var defaults = require('defaults');
-var request = require('request');
+var defaults = require('defaults'),
+	request = require('request');
 
 module.exports = Analytics;
 
 /**
+ * 
  * Initialize a new helpscout `Analytics` client with an
  * `apiKey` and `mailboxId`.
  *
+ * @class 5.Analytics
+ * 
  * @param {String} apiKey
  * @param {String} mailboxId
  */
@@ -30,7 +25,7 @@ function Analytics(apiKey, mailboxId) {
  * List the mailbox's conversations.
  *
  * @param {Object} options
- *   @param {Number} page
+ * @param {Number} page
  * @param {Function} callback
  */
 

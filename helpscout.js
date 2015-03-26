@@ -1,26 +1,23 @@
-/**
- * 
- * Module `Helpscout`.
- * 
- * @module helpscout
- * 
- */
-
-var Customers = require('./customers');
-var Conversations = require('./conversations');
-var Analytics = require('./analytics');
+var Customers = require('./customers'),
+	Conversations = require('./conversations'),
+	Analytics = require('./analytics');
 
 module.exports = Helpscout;
 
 /**
+ * 
  * Initialize a new helpscout `Helpscout` client with an
  * `apiKey` and `mailboxId`.
  *
+ * @class 1.Helpscout
+ * 
  * @param {String} apiKey
  * @param {String} mailboxId
+ * 
+ * @return {Object} Contains clients for Mailboxes, Customers, Conversations, and Analytics.
  */
 
-function Helpscout (apiKey, mailboxId) {
+function Helpscout(apiKey, mailboxId) {
   if (!(this instanceof Helpscout)) return new Helpscout(apiKey);
   if (!apiKey) throw new Error('Helpscout requires an api key.');
   if (!mailboxId) throw new Error('Helpscout requires a mailbox id.');
