@@ -1,422 +1,599 @@
-var expect = require('expect.js');
-var HelpScout = require('..');
-var util = require('util');
-var mocks = require('./mocks');
+var expect = require('expect.js'),
+	HelpScout = require('..'),
+	util = require('util'),
+	mocks = require('./mocks'),
+	Config = require('./config'),
+	debug = {
+		initial: false,
+		mailbox_list: false,
+		customer_list: false,
+		customer_mailbox_list: false,
+		customer_detail: false,
+		customer_create: false,
+		customer_update_title: false,
+		customer_add_email: false,
+		customer_del_email: false,
+		customer_delete: false,
+		conversations_all: false,
+		conversations_active: false,
+		customer_conversations_all: false,
+		customer_conversations_active: false,
+		conversation_create: false,
+		conversation_lookup: false,
+		conversation_close: false,
+		conversation_delete: false
+	};
 
 describe('helpscout', function() {
 
-    var apiKey = 'd7d7b958925901cc0859a2f620577bc1c9257cff';
-    var mailboxId = 34966;
-    var customerId;
+	var apiKey = Config.api_key,
+		mailboxId = Config.mailbox_id,
+		customerId = Config.customer_id;
 
-    describe('mailboxes', function() {
+	if (debug.initial) {
 
-        describe('list', function() {
-            it('should get a list of mailboxes', function(done) {
-                var helpscout = new HelpScout(apiKey);
-                helpscout.mailboxes.list(function(err, response) {
-                    if (err) return done(err);
-                    var res = JSON.parse(response);
+		console.log(apiKey, mailboxId, customerId);
 
-                    expect(res).to.be.ok();
-                    expect(res.items).to.be.an('array');
-                    done();
+	}
 
-                });
-            });
-        });
+	describe('mailboxes', function() {
 
-    });
+		describe('list', function() {
+			it('should get a list of mailboxes', function(done) {
 
-    describe('customers', function() {
+				var helpscout = new HelpScout(apiKey);
 
-        describe('list', function() {
+				helpscout.mailboxes.list(function(err, response) {
+					if (err) return done(err);
+					var res = JSON.parse(response);
 
-            it('should get a list of all customers', function(done) {
-                var helpscout = new HelpScout(apiKey);
-                helpscout.customers.list(function(err, response) {
-                    if (err) return done(err);
-                    var res = JSON.parse(response);
+					if (debug.mailbox_list) {
 
-                    expect(res).to.be.ok();
-                    expect(res.items).to.be.an('array');
-                    done();
+						console.log(err, res);
 
-                });
+					}
 
-            });
+					expect(res).to.be.ok();
+					expect(res.items).to.be.an('array');
 
-            it('should get a list of all customers for one mailbox', function(done) {
-                var helpscout = new HelpScout(apiKey, mailboxId);
-                helpscout.customers.list(function(err, response) {
-                    if (err) return done(err);
-                    var res = JSON.parse(response);
+					done();
 
-                    expect(res).to.be.ok();
-                    expect(res.items).to.be.an('array');
-                    done();
+				});
 
-                });
+			});
 
-            });
+		});
 
-        });
+	});
 
-        describe('get', function() {
+	describe('customers', function() {
 
-            it('should get one customer by id', function(done) {
+		describe('list', function() {
 
-                var helpscout = new HelpScout(apiKey);
-                helpscout.customers.get(customerId, function(err, response) {
-                    if (err) return done(err);
-                    var res = JSON.parse(response);
+			it('should get a list of all customers', function(done) {
 
-                    expect(res).to.be.ok();
-                    expect(res.item).to.be.an('object');
-                    expect(res.item.id).to.equal(customerId);
-                    done();
+				var helpscout = new HelpScout(apiKey);
 
-                });
+				helpscout.customers.list(function(err, response) {
+					if (err) return done(err);
+					var res = JSON.parse(response);
 
-            });
+					if (debug.customer_list) {
 
-        });
+						console.log(err, res);
 
-        // describe('create', function() {
+					}
 
-        //     it('should create a new customer', function(done) {
+					expect(res).to.be.ok();
+					expect(res.items).to.be.an('array');
 
-        //         var helpscout = new HelpScout(apiKey);
-        //         helpscout.customers.create(mocks.newUser, function(err, response) {
-        //             if (err) return done(err);
-        //             var res = JSON.parse(response);
+					done();
 
-        //             expect(res).to.be.ok();
-        //             expect(res.item).to.be.an('object');
-        //             expect(res.item.id).to.equal(customerId);
-        //             done();
+				});
 
-        //         });
+			});
 
-        //     });
+			it('should get a list of all customers for one mailbox', function(done) {
 
-        // });
+				var helpscout = new HelpScout(apiKey, mailboxId);
 
-        describe('update', function() {
+				helpscout.customers.list(function(err, response) {
+					if (err) return done(err);
+					var res = JSON.parse(response);
 
-            var newEmail = "email@work.com";
-            var emailLocation = "work";
-            var emailId = null;
+					if (debug.customer_mailbox_list) {
 
-            it('should update a customers job title', function(done) {
+						console.log(err, res);
 
-                this.timeout = 4000;
+					}
 
-                var helpscout = new HelpScout(apiKey);
+					expect(res).to.be.ok();
+					expect(res.items).to.be.an('array');
 
-                helpscout.customers.list({ email: mocks.newUser.emails[0].value }, function(err, response) {
+					done();
 
-                    var customer = JSON.parse(response);
+				});
 
-                    helpscout.customers.update(customer.items[0].id, {
-                        jobTitle: 'CTO'
-                    }, function(err2, response2) {
+			});
 
-                        var res = response2;
+		});
 
-                        expect(res).to.be.ok();
-                        expect(res.item.jobTitle).to.equal('CTO');
-                        done();
+		describe('get', function() {
 
-                    });
+			it('should get one customer by id', function(done) {
 
-                });
+				var helpscout = new HelpScout(apiKey);
 
-            });
+				helpscout.customers.get(customerId, function(err, response) {
+					if (err) return done(err);
+					var res = JSON.parse(response);
 
-            it('should add an email to a customer', function(done) {
+					if (debug.customer_detail) {
 
-                this.timeout = 4000;
+						console.log(err, res);
 
-                var helpscout = new HelpScout(apiKey);
+					}
 
-                helpscout.customers.list({ email: mocks.newUser.emails[0].value }, function(err, response) {
+					expect(res).to.be.ok();
+					expect(res.item).to.be.an('object');
+					expect(res.item.id).to.equal(customerId);
 
-                    var customer = JSON.parse(response);
+					done();
 
+				});
 
-                    helpscout.customers.update(customer.items[0].id, {
-                        emails: [{
-                            value: newEmail,
-                            location: emailLocation
-                        }]
-                    }, function(err2, response2) {
+			});
 
-                        var res = response2;
-                        var count = 0;
+		});
 
-                        res.item.emails.forEach(function(email) {
-                            if(email.value === newEmail) {
-                                emailId = email.id;
-                                count++;
-                            }
-                        });
-                        expect(count).to.equal(1);
-                        done();
+		// describe('create', function() {
 
-                    });
+		// 	it('should create a new customer', function(done) {
 
-                });
+		// 		var helpscout = new HelpScout(apiKey);
 
-            });
+		// 		helpscout.customers.create(mocks.newUser, function(err, response) {
+		// 			if (err) return done(err);
+		// 			var res = JSON.parse(response);
 
-            it('should remove an email from a customer', function(done) {
+		// 			if (debug.customer_create) {
 
-                this.timeout = 4000;
+		// 				console.log(err, res);
 
-                var helpscout = new HelpScout(apiKey);
+		// 			}
 
-                helpscout.customers.list({ email: mocks.newUser.emails[0].value }, function(error, response) {
+		// 			expect(res).to.be.ok();
+		// 			expect(res.item).to.be.an('object');
+		// 			expect(res.item.id).to.equal(customerId);
 
-                    var customer = JSON.parse(response);
+		// 			done();
 
-                    helpscout.customers.update(customer.items[0].id, {
-                        emails: [{
-                            id: emailId * -1,
-                            value: newEmail,
-                            location: emailLocation
-                        }]
-                    }, function(err, res) {
+		// 		});
 
-                        expect(res).to.be.ok();
+		// 	});
 
-                        var count = 0;
-                        res.item.emails.forEach(function(email) {
-                            if(email.value === newEmail) {
-                                emailId = email.id;
-                                count++;
-                            }
-                        });
-                        expect(count).to.equal(0);
-                        done();
+		// });
 
-                    });
+		describe('update', function() {
 
-                });
+			var newEmail = "email." + new Date().getTime() + "@work.com",
+				emailLocation = "work",
+				emailId = null;
 
-            });
+			it('should update a customers job title', function(done) {
 
-        });
+				this.timeout = 6000;
 
-        // describe('delete', function() {
+				var helpscout = new HelpScout(apiKey);
 
-        //     it('should delete a customer', function(done) {
+				helpscout.customers.list({ email: mocks.newUser.emails[0].value }, function(err, response) {
 
-        //         var helpscout = new HelpScout(apiKey);
+					var customer = JSON.parse(response),
+						old_title = customer.items[0].jobTitle,
+						new_title1 = 'CTO',
+						new_title2 = 'EVP',
+						actual_new_title = new_title1;
+					
+					if (old_title === new_title1)
+						actual_new_title = new_title2;
 
-        //         helpscout.customers.list({ email: mocks.newUser.emails[0].value }, function(err, response) {
+					helpscout.customers.update(customer.items[0].id, {
+						jobTitle: actual_new_title
+					}, function(err2, response2) {
 
-        //             var res = JSON.parse(response);
+						var res = response2;
 
-        //             helpscout.customers.delete(res.items[0].id, function(err2, response2) {
+						if (debug.customer_update_title) {
 
-        //                 console.log(err2, response2);
-        //                 expect(response2).to.be.ok();
-        //                 done();
+							console.log(err, res);
 
-        //             });
+						}
 
-        //         });
+						expect(res).to.be.ok();
+						expect(res.item.jobTitle).to.equal(actual_new_title);
 
-        //     });
+						done();
 
-        // });
+					});
 
-    });
+				});
 
-    describe('conversations', function() {
+			});
 
-        var conversationId;
+			it('should add an email to a customer', function(done) {
 
-        describe('list', function() {
+				this.timeout = 4000;
 
-            it('should get a list of all conversations', function(done) {
+				var helpscout = new HelpScout(apiKey);
 
-                this.timeout(4000);
+				helpscout.customers.list({ email: mocks.newUser.emails[0].value }, function(err, response) {
 
-                var helpscout = new HelpScout(apiKey, mailboxId);
-                helpscout.conversations.list(function(err, response) {
-                    if (err) return done(err);
-                    var res = JSON.parse(response);
-                    expect(res).to.be.ok();
-                    expect(res.items).to.be.an('array');
-                    done();
-                });
+					var customer = JSON.parse(response);
 
-            });
+					helpscout.customers.update(customer.items[0].id, {
+						emails: [{
+							value: newEmail,
+							location: emailLocation
+						}]
+					}, function(err2, response2) {
 
-            it('should get a list of active conversations', function(done) {
+						var res = response2;
 
-                var helpscout = HelpScout(apiKey, mailboxId);
-                helpscout.conversations.list({
-                    status: 'active'
-                }, function(err, response) {
+						if (debug.customer_add_email) {
 
-                    if (err) return done(err);
-                    var res = JSON.parse(response);
-                    expect(res).to.be.ok();
-                    expect(res.items).to.be.an('array');
+							console.log('response: ', res, 'emails: ',res.item.emails);
 
-                    res.items.forEach(function(item) {
-                        expect(item.status).to.equal('active');
-                    });
+						}
 
-                    done();
-                });
+						var count = 0;
 
-            });
+						res.item.emails.forEach(function(email) {
+							if(email.value === newEmail) {
+								emailId = email.id;
+								count++;
+							}
+						});
+						expect(count).to.equal(1);
 
-        });
+						done();
 
-        describe('listForCustomer', function() {
+					});
 
-            it('should get a list of conversations for one customer', function(done) {
-                var helpscout = new HelpScout(apiKey, mailboxId);
-                helpscout.conversations.listForCustomer(customerId, function(err, response) {
-                    if (err) return done(err);
-                    var res = JSON.parse(response);
+				});
 
-                    expect(res).to.be.ok();
-                    expect(res.items).to.be.an('array');
+			});
 
-                    res.items.forEach(function(item) {
-                        expect(item.customer.id).to.equal(customerId);
-                    });
-                    done();
+			it('should remove an email from a customer', function(done) {
 
-                });
+				this.timeout = 8000;
 
-            });
+				var helpscout = new HelpScout(apiKey);
 
-            it('should get a list of active conversations for one customer', function(done) {
-                var helpscout = new HelpScout(apiKey, mailboxId);
-                helpscout.conversations.listForCustomer(customerId, {
-                    status: 'active'
-                }, function(err, response) {
-                    if (err) return done(err);
-                    var res = JSON.parse(response);
+				helpscout.customers.list({ email: mocks.newUser.emails[0].value }, function(error, response) {
 
-                    expect(res).to.be.ok();
-                    expect(res.items).to.be.an('array');
+					var customer = JSON.parse(response);
 
-                    res.items.forEach(function(item) {
-                        expect(item.customer.id).to.equal(customerId);
-                        expect(item.status).to.equal('active');
-                    });
-                    done();
+					helpscout.customers.update(customer.items[0].id, {
+						emails: [{
+							id: emailId * -1,
+							value: newEmail,
+							location: emailLocation
+						}]
+					}, function(err, res) {
 
-                });
+						if (debug.customer_del_email) {
 
-            });
+							console.log('response: ', res, 'emails: ',res.item.emails);
 
-        });
+						}
 
+						expect(res).to.be.ok();
 
-        describe('create', function() {
+						var count = 0;
+						res.item.emails.forEach(function(email) {
+							if(email.value === newEmail) {
+								emailId = email.id;
+								count++;
+							}
+						});
+						expect(count).to.equal(0);
 
-            it('should create a conversation', function(done) {
+						done();
 
-                var helpscout = new HelpScout(apiKey, mailboxId);
-                helpscout.conversations.create(mocks.newConversation, function(err, res) {
+					});
 
-                    conversationId = res.item.id;
-                    expect(res).to.be.ok();
-                    expect(res.item).to.be.an('object');
+				});
 
-                    done();
+			});
 
-                });
+		});
 
-            });
-        });
+		// describe('delete', function() {
 
-        describe('get', function() {
+		// 	it('should delete a customer', function(done) {
 
-            it('should get a conversation by id', function(done) {
+		// 		var helpscout = new HelpScout(apiKey);
 
-                this.timeout(4000);
+		// 		helpscout.customers.list({ email: mocks.newUser.emails[0].value }, function(err, response) {
 
-                var helpscout = new HelpScout(apiKey, mailboxId);
-                helpscout.conversations.get(conversationId, function(err, response) {
-                    if (err) return done(err);
-                    var res = JSON.parse(response);
+		// 			var res = JSON.parse(response);
 
-                    expect(res).to.be.ok();
-                    expect(res).to.be.an('object');
-                    expect(res.item.id).to.equal(conversationId);
-                    done();
+		// 			if (debug.customer_delete) {
 
-                });
+		// 				console.log(err, res);
 
-            });
+		// 			}
 
-        });
+		// 			helpscout.customers.delete(res.items[0].id, function(err2, response2) {
 
-        describe('update', function() {
+		// 				console.log(err2, response2);
+		// 				expect(response2).to.be.ok();
 
-            it('should close the conversation and update the tags', function(done) {
+		// 				done();
 
-                var helpscout = new HelpScout(apiKey, mailboxId);
-                helpscout.conversations.update(conversationId, mocks.updateConversation, function(error, response) {
+		// 			});
 
-                    expect(response).to.be.ok();
+		// 		});
 
-                    helpscout.conversations.get(conversationId, function(err, response) {
+		// 	});
 
-                        expect(response).to.be.ok();
+		// });
 
-                        var res = JSON.parse(response);
-                        expect(res.item.status).to.be('closed');
-                        expect(res.item.tags).to.be.an('array');
+	});
 
-                        var concatTags = mocks.newConversation.tags.concat(mocks.updateConversation.tags).toString();
-                        expect(res.item.tags.toString()).to.be(concatTags);
+	describe('conversations', function() {
 
-                        done();
+		var conversationId;
 
-                    });
+		describe('list', function() {
 
-                });
+			it('should get a list of all conversations', function(done) {
 
-            });
+				this.timeout(4000);
 
-        });
+				var helpscout = new HelpScout(apiKey, mailboxId);
 
-        describe('delete', function() {
+				helpscout.conversations.list(function(err, response) {
+					if (err) return done(err);
+					var res = JSON.parse(response);
 
-            it('should delete a conversation', function(done) {
+					if (debug.conversations_all) {
 
-                var helpscout = new HelpScout(apiKey, mailboxId);
-                helpscout.conversations.delete(conversationId, function(error, response) {
+						console.log(err, res);
 
-                    expect(response).to.be.ok();
+					}
 
-                    helpscout.conversations.get(conversationId, function(err, res) {
+					expect(res).to.be.ok();
+					expect(res.items).to.be.an('array');
 
-                        expect(err).to.be.ok();
-                        expect(res).to.not.be.ok();
-                        done();
+					done();
 
-                    });
+				});
 
-                });
+			});
 
-            });
+			it('should get a list of active conversations', function(done) {
 
-        });
+				var helpscout = HelpScout(apiKey, mailboxId);
 
-    });
+				helpscout.conversations.list({
+					status: 'active'
+				}, function(err, response) {
+					if (err) return done(err);
+					var res = JSON.parse(response);
 
-    describe('analytics', function() {});
+					if (debug.conversations_active) {
+
+						console.log(err, res);
+
+					}
+
+					expect(res).to.be.ok();
+					expect(res.items).to.be.an('array');
+
+					res.items.forEach(function(item) {
+						expect(item.status).to.equal('active');
+					});
+
+					done();
+
+				});
+
+			});
+
+		});
+
+		describe('listForCustomer', function() {
+
+			it('should get a list of conversations for one customer', function(done) {
+
+				var helpscout = new HelpScout(apiKey, mailboxId);
+
+				helpscout.conversations.listForCustomer(customerId, function(err, response) {
+					if (err) return done(err);
+					var res = JSON.parse(response);
+
+					if (debug.customer_conversations_all) {
+
+						console.log(err, res);
+
+					}
+
+					expect(res).to.be.ok();
+					expect(res.items).to.be.an('array');
+
+					res.items.forEach(function(item) {
+						expect(item.customer.id).to.equal(customerId);
+					});
+
+					done();
+
+				});
+
+			});
+
+			it('should get a list of active conversations for one customer', function(done) {
+
+				var helpscout = new HelpScout(apiKey, mailboxId);
+
+				helpscout.conversations.listForCustomer(customerId, {
+					status: 'active'
+				}, function(err, response) {
+					if (err) return done(err);
+					var res = JSON.parse(response);
+
+					if (debug.customer_conversations_active) {
+
+						console.log(err, res);
+
+					}
+
+					expect(res).to.be.ok();
+					expect(res.items).to.be.an('array');
+
+					res.items.forEach(function(item) {
+						expect(item.customer.id).to.equal(customerId);
+						expect(item.status).to.equal('active');
+					});
+
+					done();
+
+				});
+
+			});
+
+		});
+
+		describe('create', function() {
+
+			it('should create a conversation', function(done) {
+
+				var helpscout = new HelpScout(apiKey, mailboxId),
+					new_conversation = mocks.newConversation;
+
+				new_conversation.mailbox.id = mailboxId;
+
+				helpscout.conversations.create(mocks.newConversation, function(err, res) {
+
+					if (debug.conversation_create) {
+
+						console.log(err, res);
+
+					}
+
+					conversationId = res.item.id;
+					expect(res).to.be.ok();
+					expect(res.item).to.be.an('object');
+
+					done();
+
+				});
+
+			});
+		});
+
+		describe('get', function() {
+
+			it('should get a conversation by id', function(done) {
+
+				this.timeout(4000);
+
+				var helpscout = new HelpScout(apiKey, mailboxId);
+
+				helpscout.conversations.get(conversationId, function(err, response) {
+					if (err) return done(err);
+					var res = JSON.parse(response);
+
+					if (debug.conversation_lookup) {
+
+						console.log(err, res);
+
+					}
+
+					expect(res).to.be.ok();
+					expect(res).to.be.an('object');
+					expect(res.item.id).to.equal(conversationId);
+
+					done();
+
+				});
+
+			});
+
+		});
+
+		describe('update', function() {
+
+			it('should close the conversation and update the tags', function(done) {
+
+				this.timeout(4000);
+
+				var helpscout = new HelpScout(apiKey, mailboxId);
+
+				helpscout.conversations.update(conversationId, mocks.updateConversation, function(error, response) {
+
+					expect(response).to.be.ok();
+
+					helpscout.conversations.get(conversationId, function(err, response) {
+
+						expect(response).to.be.ok();
+
+						var res = JSON.parse(response);
+
+						if (debug.conversation_close) {
+
+							console.log(err, res);
+
+						}
+
+						expect(res.item.status).to.be('closed');
+						expect(res.item.tags).to.be.an('array');
+
+						var concatTags = mocks.newConversation.tags.concat(mocks.updateConversation.tags).toString();
+						expect(res.item.tags.toString()).to.be(concatTags);
+
+						done();
+
+					});
+
+				});
+
+			});
+
+		});
+
+		describe('delete', function() {
+
+			it('should delete a conversation', function(done) {
+
+				var helpscout = new HelpScout(apiKey, mailboxId);
+				helpscout.conversations.delete(conversationId, function(error, response) {
+
+					expect(response).to.be.ok();
+
+					helpscout.conversations.get(conversationId, function(err, res) {
+
+						if (debug.conversation_delete) {
+
+							console.log(err, res);
+
+						}
+
+						expect(err).to.be.ok();
+						expect(res).to.not.be.ok();
+
+						done();
+
+					});
+
+				});
+
+			});
+
+		});
+
+	});
+
+	describe('analytics', function() {});
 
 });
