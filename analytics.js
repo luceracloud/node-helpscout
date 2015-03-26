@@ -8,10 +8,10 @@ module.exports = Analytics;
  * Initialize a new helpscout `Analytics` client with an
  * `apiKey` and `mailboxId`.
  *
- * @class 5.Analytics
+ * @class Analytics
  * 
- * @param {String} apiKey
- * @param {String} mailboxId
+ * @param {String} apiKey    Your authorized API key
+ * @param {String} mailboxId A specific mailbox id
  */
 
 function Analytics(apiKey, mailboxId) {
@@ -24,7 +24,7 @@ function Analytics(apiKey, mailboxId) {
 /**
  * List the mailbox's conversations.
  *
- * @param {Object} options
+ * @param {Object} options Options for this function.
  * @param {Number} page
  * @param {Function} callback
  */

@@ -8,9 +8,9 @@ module.exports = Mailboxes;
  * Initialize a new helpscout `Mailboxes` client with an
  * `apiKey`.
  *
- * @class 2.Mailboxes
+ * @class Mailboxes
  *
- * @param {String} apiKey
+ * @param {String} apiKey Your authorized API key
  */
 
 function Mailboxes(apiKey) {
@@ -22,9 +22,8 @@ function Mailboxes(apiKey) {
 /**
  * List the `Mailboxes`.
  *
- * @param {Object} options
- * @param {Number} page
- * @param {Function} callback
+ * @param {Object}   options  Options for this function
+ * @param {Function} callback A callback function
  */
 
 Mailboxes.prototype.list = function(options, callback) {

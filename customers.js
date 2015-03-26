@@ -8,10 +8,10 @@ module.exports = Customers;
  * Initialize a new helpscout `Customers` client with an
  * `apiKey` and `mailboxId`.
  *
- * @class 3.Customers
+ * @class Customers
  *
- * @param {String} apiKey
- * @param {String} mailboxId
+ * @param {String} apiKey    Your authorized API key
+ * @param {String} mailboxId A specific mailbox id
  */
 
 function Customers(apiKey, mailboxId) {
@@ -24,8 +24,8 @@ function Customers(apiKey, mailboxId) {
 /**
  * List `Customers` (optionally by `Mailbox`).
  *
- * @param {Object} options
- * @param {Function} callback
+ * @param {Object}   options  Options for this function
+ * @param {Function} callback A callback function
  */
 
 Customers.prototype.list = function(options, callback) {
@@ -56,8 +56,8 @@ Customers.prototype.list = function(options, callback) {
 /**
  * Get a single existing `Customer`.
  *
- * @param {Number} customerId
- * @param {Function} callback
+ * @param {Number}   customerId The id of a specific customer
+ * @param {Function} callback   A callback function
  */
 
 Customers.prototype.get = function(customerId, callback) {
@@ -79,8 +79,8 @@ Customers.prototype.get = function(customerId, callback) {
 /**
  * Create a new `Customer`.
  *
- * @param {Object} customer
- * @param {Function} callback
+ * @param {Object}   customer A customer object to create
+ * @param {Function} callback A callback function
  */
 
 Customers.prototype.create = function(customer, callback) {
@@ -112,15 +112,15 @@ Customers.prototype.create = function(customer, callback) {
 /**
  * Update an existing `Customer`.
  *
- * @param {Number} customerId
- * @param {Object} customer
- * @param {Function} callback
+ * @param {Number}   customerId The id of a specific customer
+ * @param {Object}   customer   An update object
+ * @param {Function} callback   A callback function
  */
 
 Customers.prototype.update = function(customerId, customer, callback) {
 
     if (!customerId) return new Error('Customer id is required');
-    if (!customer) return new Error('Customer object is required');
+    if (!customer) return new Error('Customer update object is required');
 
     request.put({
         url: 'https://api.helpscout.net/v1/customers/' + customerId + '.json',
@@ -150,8 +150,8 @@ Customers.prototype.update = function(customerId, customer, callback) {
  *
  * NOTE: NOT YET IMPLEMENTED BY HELP SCOUT
  *
- * @param {Number} customerId
- * @param {Function} callback
+ * @param {Number}   customerId The id of a specific customer
+ * @param {Function} callback   A callback function
  */
 
 Customers.prototype.delete = function(customerId, callback) {
