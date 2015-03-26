@@ -1,20 +1,23 @@
-var Mailboxes = require('./mailboxes');
+/**
+ * 
+ * Module `Helpscout`.
+ * 
+ * @module helpscout
+ * 
+ */
+
 var Customers = require('./customers');
 var Conversations = require('./conversations');
 var Analytics = require('./analytics');
 
-/**
- * Expose `Helpscout`.
- */
-
 module.exports = Helpscout;
 
 /**
- * Initialize a new `Helpscout` client with an `apiKey`.
+ * Initialize a new helpscout `Helpscout` client with an
+ * `apiKey` and `mailboxId`.
  *
  * @param {String} apiKey
  * @param {String} mailboxId
- * @param {String} customerId
  */
 
 function Helpscout (apiKey, mailboxId) {

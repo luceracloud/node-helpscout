@@ -1,16 +1,22 @@
+/**
+ * 
+ * Module `Mailboxes`.
+ * 
+ * @module mailboxes
+ * 
+ */
+
 var defaults = require('defaults');
 var request = require('request');
-
-/**
- * Expose `Mailboxes`.
- */
 
 module.exports = Mailboxes;
 
 /**
- * Initialize a new `Mailboxes` client with an `apiKey`.
+ * Initialize a new helpscout `Mailboxes` client with an
+ * `apiKey` and `mailboxId`.
  *
  * @param {String} apiKey
+ * @param {String} mailboxId
  */
 
 function Mailboxes(apiKey) {

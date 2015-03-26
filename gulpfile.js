@@ -23,11 +23,15 @@ gulp.task('test', function() {
 });
 
 var jsdocOptions = {},
-	jsdoc = require('gulp-jsdoc'),
-	path = require('path');
+	shell = require('gulp-shell');
 
-gulp.task('jsdoc', function() {
-	return gulp.src(path.join('./*.js'))
-		.pipe(jsdoc.parser(jsdocOptions, 'jsdoc.json'))
-		.pipe(jsdoc.generator('./docs'));
+gulp.task('jsdoc', shell.task(
+		'./node_modules/.bin/jsdoc -c jsdoc.json', {cwd: './'}
+	)
+);
+
+gulp.task('build-docs', shell.task('make html', {cwd: './docs'}));
+ 
+gulp.task('docs', ['jsdoc', 'build-docs'], function() {
+  gulp.watch(['./docs/rst/*.rst', './docs/rst/*.py'], ['build-docs'])
 });

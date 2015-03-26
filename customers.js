@@ -1,16 +1,22 @@
+/**
+ * 
+ * Module `Customers`.
+ * 
+ * @module customers
+ * 
+ */
+
 var defaults = require('defaults');
 var request = require('request');
-
-/**
- * Expose `Customers`.
- */
 
 module.exports = Customers;
 
 /**
- * Initialize a new `Customers` client with an `apiKey`.
+ * Initialize a new helpscout `Customers` client with an
+ * `apiKey` and `mailboxId`.
  *
  * @param {String} apiKey
+ * @param {String} mailboxId
  */
 
 function Customers(apiKey, mailboxId) {

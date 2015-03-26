@@ -1,8 +1,13 @@
 {
 	"source": {
 		"include": [ "./" ],
-		"exclude": [ "./tests/" ],
+		"exclude": [ "./gulpfile.js", "./node_modules/", "./fonts" ],
 		"includePattern": ".+\\.js(doc)?$",
 		"excludePattern": "(^|\\/|\\\\)_"
+	},
+	"opts": {
+		// "template": "./node_modules/jsdoc-rst-template/template/",
+		"destination": "./docs/rst",
+		"recurse": false
 	}
 }

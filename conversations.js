@@ -1,9 +1,13 @@
+/**
+ * 
+ * Module `Conversations`.
+ * 
+ * @module conversations
+ * 
+ */
+
 var defaults = require('defaults');
 var request = require('request');
-
-/**
- * Expose `Conversations`.
- */
 
 module.exports = Conversations;
 

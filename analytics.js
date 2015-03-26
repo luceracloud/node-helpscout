@@ -1,9 +1,13 @@
+/**
+ * 
+ * Module `Analytics`.
+ * 
+ * @module analytics
+ * 
+ */
+
 var defaults = require('defaults');
 var request = require('request');
-
-/**
- * Expose `Analytics`.
- */
 
 module.exports = Analytics;
 
