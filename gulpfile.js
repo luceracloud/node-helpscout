@@ -13,7 +13,7 @@ var gulp = require('gulp'),
 	mocha = require('gulp-mocha');
 
 gulp.task('test', function () {
-    return gulp.src('tests/HelpScout-test.js', {read: false})
-        .pipe(mocha({reporter: 'nyan'}))
-        .pipe(exit());
+	return gulp.src('tests/HelpScout-test.js', {read: false})
+		.pipe(mocha({reporter: 'nyan'}))
+		.pipe(exit());
 });
