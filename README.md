@@ -9,12 +9,12 @@
 
 ```javascript
 // one-liner
-var HelpScout = new require('node-helpscout')([api_key], [mailbox_id]);
+var HelpScout = new require('node-helpscout')([api_key]);
 ```
 
 ```javascript
-// or, the same, without a mailbox id
-var HelpScout = new require('node-helpscout')([api_key]);
+// or, the same, with a mailbox id
+var HelpScout = new require('node-helpscout')([api_key], [mailbox_id]);
 ```
 
 ```javascript
