@@ -25,7 +25,7 @@ var helpscout2 = new HelpScout([api_key], [mailbox_id]);
 ```
 
 #### API Key
-See the section "Generating an API Key" in the Help Scout [API documentation](http://developer.helpscout.net/help-desk-api/) to generate a proper api key for your user.
+See the Help Scout [API documentation](http://developer.helpscout.net/help-desk-api/), specifically the section "Generating an API Key" to generate a proper api key for your user.
 
 #### Mailbox ID
 This is a numeral that represents the mailbox id in the Help Scout backend.
