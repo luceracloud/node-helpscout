@@ -30,6 +30,16 @@ See the section "Generating an API Key" in the Help Scout [API documentation](ht
 #### Mailbox ID
 This is a numeral that represents the mailbox id in the Help Scout backend.
 
+##### Multiple mailbox ID types
+Be aware this is *not* the hex-based id you may see on their website, in URLs such as this:
+https://secure.helpscout.net/mailbox/fbb9cbecb6643fc1/
+
+##### Correct mailbox ID discovery
+If you cannot find the numeral-only id, click the gear icon within the mailbox, and choose "Edit Mailbox" to reach a URL similar to this:
+https://secure.helpscout.net/settings/mailbox/149162/
+
+This shows the true numeral ID in this instance to be *149162*.
+
 ## Examples
 
 #### Testing Framework Usage
