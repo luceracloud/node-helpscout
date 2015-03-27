@@ -9,10 +9,10 @@ module.exports = Helpscout;
  * Initialize a new helpscout `Helpscout` client with an
  * `apiKey` and `mailboxId`.
  *
- * @class 1.Helpscout
+ * @class Helpscout
  * 
- * @param {String} apiKey
- * @param {String} mailboxId
+ * @param {String} apiKey    Your authorized API key
+ * @param {String} mailboxId A specific mailbox id
  * 
  * @return {Object} Contains clients for Mailboxes, Customers, Conversations, and Analytics.
  */

@@ -8,10 +8,10 @@ module.exports = Conversations;
  * Initialize a new helpscout `Conversations` client with an
  * `apiKey` and `mailboxId`.
  *
- * @class 4.Conversations
+ * @class Conversations
  * 
- * @param {String} apiKey
- * @param {String} mailboxId
+ * @param {String} apiKey    Your authorized API key
+ * @param {String} mailboxId A specific mailbox id
  */
 
 function Conversations(apiKey, mailboxId) {
@@ -24,9 +24,8 @@ function Conversations(apiKey, mailboxId) {
 /**
  * List `Conversations` by `Mailbox`.
  *
- * @param {Object} options
- * @param {Number} page
- * @param {Function} callback
+ * @param {Object}   options  Options for this function
+ * @param {Function} callback A callback function
  */
 
 Conversations.prototype.list = function(options, callback) {
@@ -56,9 +55,9 @@ Conversations.prototype.list = function(options, callback) {
 /**
  * List `Conversations` by `Mailbox` for a `Customer`.
  *
- * @param {Number} customerId
- * @param {Object} options
- * @param {Function} callback
+ * @param {Number}   customerId The id of a specific customer
+ * @param {Object}   options    Options for this function
+ * @param {Function} callback   A callback function
  */
 
 Conversations.prototype.listForCustomer = function(customerId, options, callback) {
@@ -90,8 +89,8 @@ Conversations.prototype.listForCustomer = function(customerId, options, callback
 /**
  * Get a single existing `Conversation`.
  *
- * @param  {Number}   conversationId
- * @param  {Function} callback
+ * @param  {Number}   conversationId The id of a specific conversation
+ * @param  {Function} callback       A callback function
  */
 
 Conversations.prototype.get = function(conversationId, callback) {
@@ -115,9 +114,9 @@ Conversations.prototype.get = function(conversationId, callback) {
 /**
  * Create a new `Conversation`.
  *
- * @param  {Object}   conversation
- * @param  {Object}   options
- * @param  {Function} callback
+ * @param  {Object}   conversation The id of a specific conversation
+ * @param  {Object}   options      Options for this function
+ * @param  {Function} callback     A callback function
  */
 
 Conversations.prototype.create = function(conversation, options, callback) {
@@ -154,15 +153,15 @@ Conversations.prototype.create = function(conversation, options, callback) {
 /**
  * Update an existing `Conversation`.
  *
- * @param  {Number}   conversationId
- * @param  {Object}   updates
- * @param  {Function} callback
+ * @param  {Number}   conversationId The id of a specific conversation
+ * @param  {Object}   conversation   An update object
+ * @param  {Function} callback       A callback function
  */
 
-Conversations.prototype.update = function(conversationId, updates, callback) {
+Conversations.prototype.update = function(conversationId, conversation, callback) {
 
     if (!conversationId) return new Error('Conversation id is required.');
-    if (!updates) return new Error('Updates are required.');
+    if (!conversation) return new Error('Conversation update object is required.');
 
     request.put('https://api.helpscout.net/v1/conversations/' + conversationId + '.json', {
         'auth': {
@@ -174,7 +173,7 @@ Conversations.prototype.update = function(conversationId, updates, callback) {
         },
         qs: { reload: true },
         json: true,
-        body: updates
+        body: conversation
     }, function(err, res) {
         if (err || res.statusCode !== 200) return callback(new Error(res.body.error));
         return callback(null, res.body);
@@ -185,8 +184,8 @@ Conversations.prototype.update = function(conversationId, updates, callback) {
 /**
  * Delete an existing `Conversation`.
  *
- * @param  {Number}   conversationId
- * @param  {Function} callback
+ * @param  {Number}   conversationId The id of a specific conversation
+ * @param  {Function} callback       A callback function
  */
 
 Conversations.prototype.delete = function(conversationId, callback) {

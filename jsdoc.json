@@ -5,8 +5,31 @@
 		"includePattern": ".+\\.js(doc)?$",
 		"excludePattern": "(^|\\/|\\\\)_"
 	},
+	"plugins": ["plugins/markdown"],
 	"opts": {
+		"template": "./template",
 		"destination": "./docs",
 		"recurse": false
+	},
+	"templates": {
+		"cleverLinks": false,
+		"monospaceLinks": false,
+		"dateFormat": "ddd MMM Do YYYY",
+		"outputSourceFiles": true,
+		"outputSourcePath": true,
+		"systemName": "Node-HelpScout API Documentation",
+		"footer": "",
+		"copyright": "",
+		"navType": "vertical",
+		"theme": "cerulean",
+		"linenums": true,
+		"collapseSymbols": false,
+		"inverseNav": true,
+		"highlightTutorialCode": true,
+		"protocol": "html://"
+	},
+	"markdown": {
+		"parser": "gfm",
+		"hardwrap": true
 	}
 }
