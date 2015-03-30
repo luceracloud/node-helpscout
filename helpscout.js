@@ -1,6 +1,6 @@
 var Customers = require('./customers'),
 	Conversations = require('./conversations'),
-	Mailboxes = require('./mailboxes');
+	Mailboxes = require('./mailboxes'),
 	Analytics = require('./analytics');
 
 module.exports = Helpscout;
