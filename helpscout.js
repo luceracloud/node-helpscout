@@ -1,5 +1,6 @@
 var Customers = require('./customers'),
 	Conversations = require('./conversations'),
+	Mailboxes = require('./mailboxes');
 	Analytics = require('./analytics');
 
 module.exports = Helpscout;
@@ -18,15 +19,15 @@ module.exports = Helpscout;
  */
 
 function Helpscout(apiKey, mailboxId) {
-  if (!(this instanceof Helpscout)) return new Helpscout(apiKey);
-  if (!apiKey) throw new Error('Helpscout requires an api key.');
-  if (!mailboxId) throw new Error('Helpscout requires a mailbox id.');
+	if (!(this instanceof Helpscout)) return new Helpscout(apiKey);
+	if (!apiKey) throw new Error('Helpscout requires an api key.');
+	if (!mailboxId) throw new Error('Helpscout requires a mailbox id.');
 
-  return {
-  	mailboxes: new Mailboxes(apiKey),
-  	customers: new Customers(apiKey, mailboxId),
-  	conversations: new Conversations(apiKey, mailboxId),
-  	analytics: new Analytics(apiKey, mailboxId)
-  };
+	return {
+		mailboxes: new Mailboxes(apiKey),
+		customers: new Customers(apiKey, mailboxId),
+		conversations: new Conversations(apiKey, mailboxId),
+		analytics: new Analytics(apiKey, mailboxId)
+	};
 
 }
