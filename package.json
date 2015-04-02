@@ -36,6 +36,7 @@
     "gulp-shell": "^0.4.0",
     "jsdoc": "^3.3.0-beta3",
     "jsdoc-rst-template": "0.0.17",
+    "jsdoc-to-markdown": "^0.5.11",
     "mocha": "^2.1.0",
     "nock": "^0.59.1",
     "superagent": "^0.21.0"

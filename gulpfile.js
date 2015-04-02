@@ -30,8 +30,7 @@ gulp.task('jsdoc', shell.task(
 	)
 );
 
-gulp.task('build-docs', shell.task('make html', {cwd: './docs'}));
- 
-gulp.task('docs', ['jsdoc', 'build-docs'], function() {
-  gulp.watch(['./docs/rst/*.rst', './docs/rst/*.py'], ['build-docs'])
-});
+gulp.task('docs', shell.task(
+		'mkdir -p docs-md; jsdoc2md --src *.js > ./docs-md/node-helpscout.md', {cwd: './'}
+	)
+);
